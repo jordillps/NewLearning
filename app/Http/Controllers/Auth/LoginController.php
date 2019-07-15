@@ -30,7 +30,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -106,13 +106,15 @@ class LoginController extends Controller
 	    if($success === true) {
     		\DB::commit();
     		auth()->loginUsingId($user->id);
-    		return redirect(route('home'));
+            return redirect(route('home'));
+            //return back();
         }
         //no cal posar else perque el if ja te un return
         //O sigui l'execucio arribara aqui nomes si succes es falsa
         //es a dir la transaccio no s'ha executat
         //succees en aquest cas es l'error
 	    session()->flash('message', ['danger', $success]);
-    	return redirect('login');
+        return redirect('login');
+       
     }
 }

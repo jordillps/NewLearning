@@ -23,6 +23,9 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+
+    {{-- //Per afegir els stils de la carpeta css --}}
+    @stack('styles')
 </head>
 <body>
     @include('partials.navigation')
@@ -30,7 +33,7 @@
     @yield('jumbotron')
 
     <div id="app">
-
+        
         <main class="py-4">
                 <!-- Message de cancelació de login de facebook -->
                 <!-- Login Controller -->
@@ -47,5 +50,7 @@
             @yield('content')
         </main>
     </div>
+    <!-- Scripts -->
+    @stack('scripts')
 </body>
 </html>

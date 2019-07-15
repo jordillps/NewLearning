@@ -18,8 +18,7 @@
                 {{ str_limit($course->description, 100, '  leer más...') }}
             </p>
             <a
-                {{-- href="{{ route('courses.detail', $course->slug) }}" --}}
-                href="#"
+                href="{{ route('courses.detail', $course->slug) }}"
                 class="btn btn-course btn-block"
             >
                 {{ __("Más información") }}

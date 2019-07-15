@@ -17,7 +17,7 @@
                     @include('partials.courses.rating', ['rating' => $course->custom_rating])
                 </div>
 
-                {{-- @include('partials.courses.action_button') --}}
+                @include('partials.courses.action_button')
             </div>
         </div>
     </div>
