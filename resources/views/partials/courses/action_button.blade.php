@@ -2,6 +2,7 @@
     {{-- Per a saber si l'usuari està autenticat --}}
     @auth
     {{-- identificado --}}
+        {{-- funcions a course policy --}}
         @can('opt_for_course', $course)
              @can('subscribe', \App\Course::class)
              {{-- Es pot subscriure perque encara no te cap plan contractat --}}
@@ -9,11 +10,10 @@
                     <i class="fa fa-bolt"></i> {{ __("Suscribirme") }}
                 </a>
              @else
-             {{-- L'usuari esta subsccrit a un pla i volem saber si es pot 
+             {{-- L'usuari esta subscrit a un pla i volem saber si es pot 
              inscriure al curs --}}
                  @can('inscribe', $course)
-                    {{-- <a class="btn btn-subscribe btn-bottom btn-block" href="{{ route('courses.inscribe', ['slug' => $course->slug]) }}"> --}}
-                    <a class="btn btn-subscribe btn-bottom btn-block" href="#">
+                    <a class="btn btn-subscribe btn-bottom btn-block" href="{{ route('courses.inscribe', ['slug' => $course->slug]) }}">
                         <i class="fa fa-bolt"></i> {{ __("Inscribirme") }}
                     </a>
                  @else

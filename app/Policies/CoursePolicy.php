@@ -22,8 +22,8 @@ class CoursePolicy
     // Per saber si l'usuari es pot subscriure a algun plan
     public function subscribe (User $user) {
         // L'usuari no es administrador i no està subscrit anteriorment
-        // return $user->role_id !== Role::ADMIN && ! $user->subscribed('main');
-        return true;
+        return $user->role_id !== Role::ADMIN && ! $user->subscribed('main');
+        
     }
 
     // Per a saber si l'estudiant es pot subscriure
@@ -33,6 +33,8 @@ class CoursePolicy
     }
 
 	public function review (User $user, Course $course) {
+        //si l'estudiant no ha fet comentaris sobre el curs, podrà fer
+        //comentaris
 		return ! $course->reviews->contains('user_id', $user->id);
     }
     

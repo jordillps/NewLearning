@@ -1,4 +1,5 @@
 <?php
+use GuzzleHttp\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,15 +38,16 @@ Route::get('/images/{path}/{attachment}', function($path, $attachment) {
 
 Route::group(['prefix' => 'courses'], function () {
 
-	// Route::group(['middleware' => ['auth']], function() {
-	// 	Route::get('/subscribed', 'CourseController@subscribed')->name('courses.subscribed');
-	// 	Route::get('/{course}/inscribe', 'CourseController@inscribe')->name('courses.inscribe');
-	// 	Route::post('/add_review', 'CourseController@addReview')->name('courses.add_review');
+	Route::group(['middleware' => ['auth']], function() {
+		Route::get('/subscribed', 'CourseController@subscribed')->name('courses.subscribed');
+		Route::get('/{course}/inscribe', 'CourseController@inscribe')->name('courses.inscribe');
+		//add_review es el nom que hem posat al action del formulari formreview.blade.php
+		Route::post('/add_review', 'CourseController@addReview')->name('courses.add_review');
 
-	// 	Route::group(['middleware' => [sprintf('role:%s', \App\Role::TEACHER)]], function () {
-	// 		Route::resource('courses', 'CourseController');
-	// 	});
-	// });
+		// 	Route::group(['middleware' => [sprintf('role:%s', \App\Role::TEACHER)]], function () {
+		// 		Route::resource('courses', 'CourseController');
+		// 	});
+	});
 
 	//Per a mostrar els detalls dels cursos
 	//el metoode show es el que definim al controlador
@@ -68,5 +70,11 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/admin', 'InvoiceController@admin')->name('invoices.admin');
 		Route::get('/{invoice}/download', 'InvoiceController@download')->name('invoices.download');
 	});
+});
+
+
+Route::group(["prefix" => "profile", "middleware" => ["auth"]], function() {
+	Route::get('/', 'ProfileController@index')->name('profile.index');
+	Route::put('/', 'ProfileController@update')->name('profile.update');
 });
 

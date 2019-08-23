@@ -82,6 +82,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function pathAttachment () {
+    	return "/images/users/" . $this->picture;
+    }
+
     /**
      * The attributes that should be cast to native types.
      *
