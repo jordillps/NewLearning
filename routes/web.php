@@ -20,9 +20,9 @@ Route::get('/set_language/{lang}', 'Controller@setLanguage')->name( 'set_languag
 Route::get('login/{driver}', 'Auth\LoginController@redirectToProvider')->name('social_auth');
 Route::get('login/{driver}/callback', 'Auth\LoginController@handleProviderCallback');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
@@ -76,5 +76,15 @@ Route::group(['middleware' => ['auth']], function () {
 Route::group(["prefix" => "profile", "middleware" => ["auth"]], function() {
 	Route::get('/', 'ProfileController@index')->name('profile.index');
 	Route::put('/', 'ProfileController@update')->name('profile.update');
+});
+
+Route::group(['prefix' => "solicitude"], function() {
+	Route::post('/teacher', 'SolicitudeController@teacher')->name('solicitude.teacher');
+});
+
+Route::group(['prefix' => "teacher", "middleware" => ["auth"]], function() {
+	Route::get('/courses', 'TeacherController@courses')->name('teacher.courses');
+	Route::get('/students', 'TeacherController@students')->name('teacher.students');
+	Route::post('/send_message_to_student', 'TeacherController@sendMessageToStudent')->name('teacher.send_message_to_student');
 });
 

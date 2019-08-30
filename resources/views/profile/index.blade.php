@@ -102,7 +102,8 @@
                     </div>
                 </div>
 
-                {{-- @if( ! $user->teacher)
+                @if( ! $user->teacher)
+                {{-- Usuari que no es un professor --}}
                     <div class="card">
                         <div class="card-header">
                             {{ __("Convertirme en profesor de la plataforma") }}
@@ -117,6 +118,7 @@
                         </div>
                     </div>
                 @else
+                {{-- Quan l'estudiant es profesor --}}
                     <div class="card">
                         <div class="card-header">
                             {{ __("Administrar los cursos que imparto") }}
@@ -136,6 +138,7 @@
                             <table
                                 class="table table-striped table-bordered nowrap"
                                 cellspacing="0"
+                                {{-- la id es per treballar amb datatables --}}
                                 id="students-table"
                             >
                                 <thead>
@@ -164,7 +167,7 @@
                             </button>
                         </div>
                     </div>
-                @endif --}}
+                @endif
             </div>
         </div>
     </div>
@@ -172,9 +175,10 @@
 @endsection
 
 @push('scripts')
-    {{-- <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    {{-- cdn DataTables --}}
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script>
-        let dt;
+        let dt;//datatables
         let modal = jQuery("#appModal");
         jQuery(document).ready(function() {
             dt = jQuery("#students-table").DataTable({
@@ -194,39 +198,52 @@
                     {data: 'actions'}
                 ]
             });
-
+            //btnEmail prové de l'arxiu actions.blade.php
             jQuery(document).on("click", '.btnEmail', function (e) {
                 e.preventDefault();
+                //data(id)  prové de l'arxiu actions.blade.php data-id
                 const id = jQuery(this).data('id');
+                //modal-title,modalAction de l'arxiu modal.blade.php
                 modal.find('.modal-title').text('{{ __("Enviar mensaje") }}');
+                //Per mostrar el botó de "enviar mensaje"
                 modal.find('#modalAction').text('{{ __("Enviar mensaje") }}').show();
                 let $form = $("<form id='studentMessage'></form>");
                 $form.append(`<input type="hidden" name="user_id" value="${id}" />`);
                 $form.append(`<textarea class="form-control" name="message"></textarea>`);
+                //colocara la variable form a modal-body de l'arxiu modal.blade.php
                 modal.find('.modal-body').html($form);
                 modal.modal();
             });
 
+            //Enviament d'un mail a l'estudiant
             jQuery(document).on("click", "#modalAction", function (e) {
                 jQuery.ajax({
                     url: '{{ route('teacher.send_message_to_student') }}',
                     type: 'POST',
+                    //Relacionat amb el token de l'arxiu app.blade.php
                     headers: {
                         'x-csrf-token': $("meta[name=csrf-token]").attr('content')
                     },
+                    //les dades que enviem a través de ajax
+                    //studentMessage es la id del formulari(variable $form anterior)
+                    //serialize es per enviar la informacio
                     data: {
+                        //Convertim la informacio del formulari a una cadena
                         info: $("#studentMessage").serialize()
                     },
                     success: (res) => {
                         if(res.res) {
+                            //ocultem el boto d'envviar
                             modal.find('#modalAction').hide();
+                            //missatge d'exit
                             modal.find('.modal-body').html('<div class="alert alert-success">{{ __("Mensaje enviado correctamente") }}</div>');
                         } else {
+                            //missatge d'error
                             modal.find('.modal-body').html('<div class="alert alert-danger">{{ __("Ha ocurrido un error enviando el correo") }}</div>');
                         }
                     }
                 })
             })
         })
-    </script> --}}
+    </script>
 @endpush

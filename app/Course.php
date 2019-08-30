@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\Course
@@ -14,10 +15,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Course extends Model
 {
+    //Relacionat amb withTrashed() de TeacherController
+    use SoftDeletes;
+
     const PUBLISHED = 1;
 	const PENDING = 2;
 	const REJECTED = 3;
-	
+
 	protected $withCount = ['reviews', 'students'];
 
 
@@ -28,7 +32,7 @@ class Course extends Model
 
 	//Aquesta funcio defineix quina sera la clau
 	//per a definir les routes
-	//en aquest cas slug, route amigable de seo 
+	//en aquest cas slug, route amigable de seo
 	public function getRouteKeyName() {
 		return 'slug';
 	}
@@ -63,7 +67,7 @@ class Course extends Model
 		return $this->belongsToMany(Student::class);
 	}
 
-    //Exemple de relacio course *-----1 teacher 
+    //Exemple de relacio course *-----1 teacher
 	public function teacher () {
 		return $this->belongsTo(Teacher::class);
 	}
@@ -84,6 +88,6 @@ class Course extends Model
 			->limit(6)
 			->get();
 	}
-    
-    
+
+
 }

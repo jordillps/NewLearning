@@ -46,7 +46,7 @@
         </div>
     @endcan
 @endcannot
-{{-- Podem escriure els scripts perque a 
+{{-- Podem escriure els scripts perque a
 layout\app tenim @stack('scripts') --}}
 @push('scripts')
     <script>

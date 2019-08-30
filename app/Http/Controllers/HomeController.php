@@ -26,7 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         //Definim les dades que volem mostrar
-        //withcount es el nombre d'estuduiants  que hi ha en el curs
+        //withcount es el nombre d'estudiants  que hi ha en el curs
     	$courses = Course::withCount(['students'])
             ->with('categoory', 'teacher', 'reviews')
             //clausula where
@@ -38,8 +38,8 @@ class HomeController extends Controller
 
             //per veure la informacio per pantalla
             //dd($courses);
-           
-        //retorna la vista home amb la variable courses    
+
+        //retorna la vista home amb la variable courses
         return view('home', compact('courses'));
     }
 }
