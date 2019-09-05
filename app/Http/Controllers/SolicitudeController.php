@@ -13,10 +13,13 @@ class SolicitudeController extends Controller
     	if ( ! $user->teacher) {
     		try {
 			    \DB::beginTransaction();
-			    $user->role_id = Role::TEACHER;
+                $user->role_id = Role::TEACHER;
+                //dd($user);
+                $user->save();
 			    Teacher::create([
 			    	'user_id' => $user->id
-			    ]);
+                ]);
+
 			    $success = true;
 		    } catch (\Exception $exception) {
     			\DB::rollBack();

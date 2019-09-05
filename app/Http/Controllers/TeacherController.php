@@ -27,12 +27,14 @@ class TeacherController extends Controller
     }
 
     public function sendMessageToStudent () {
+        //Recuperem la informacio del modal(ajax) index.blade.php
     	$info = \request('info');
     	$data = [];
     	parse_str($info, $data);
     	$user = User::findOrFail($data['user_id']);
     	try {
-    		Mail::to($user)->send(new MessageToStudent( auth()->user()->name, $data['message']));
+			//\Mail::to($user)->send(new MessageToStudent(auth()->user()->name, $data['message']));
+			\Mail::to($user)->send(new MessageToStudent(auth()->user()->name,$data['message']));
     		$success = true;
 	    } catch (\Exception $exception) {
     		$success = false;

@@ -44,9 +44,10 @@ Route::group(['prefix' => 'courses'], function () {
 		//add_review es el nom que hem posat al action del formulari formreview.blade.php
 		Route::post('/add_review', 'CourseController@addReview')->name('courses.add_review');
 
-		// 	Route::group(['middleware' => [sprintf('role:%s', \App\Role::TEACHER)]], function () {
-		// 		Route::resource('courses', 'CourseController');
-		// 	});
+        Route::group(['middleware' => [sprintf('role:%s', \App\Role::TEACHER)]], function () {
+            //Per a crear, editar i esborrar cursos
+            Route::resource('courses', 'CourseController');
+        });
 	});
 
 	//Per a mostrar els detalls dels cursos
