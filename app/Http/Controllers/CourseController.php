@@ -8,6 +8,7 @@ use App\Http\Requests\CourseRequest;
 use App\Mail\NewStudentInCourse;
 use App\Review;
 
+
 class CourseController extends Controller
 {
     //
@@ -84,12 +85,46 @@ class CourseController extends Controller
 
     //Utilitzem for request per validar el formulari abans d'enviar-lo
     public function store (CourseRequest $course_request) {
-        dd($course_request->all());
-		// $picture = Helper::uploadFile('picture', 'courses');
-		// $course_request->merge(['picture' => $picture]);
-		// $course_request->merge(['teacher_id' => auth()->user()->teacher->id]);
-		// $course_request->merge(['status' => Course::PENDING]);
-		// Course::create($course_request->input());
-		// return back()->with('message', ['success', __('Curso enviado correctamente, recibirá un correo con cualquier información')]);
+        //dd($course_request->all());
+        //picture es el nom de l'arxiu, courses es el path de l'arxiu es a dir
+        ///storage/app/public/courses
+        $picture = Helper::uploadFile('picture', 'courses');
+        //afegim una nova variable a l'array $course_request
+        //la key dela nova variable es picture i el valor $picture(nomde l'arxiu)
+		$course_request->merge(['picture' => $picture]);
+		$course_request->merge(['teacher_id' => auth()->user()->teacher->id]);
+        $course_request->merge(['status' => Course::PENDING]);
+        //tots els camps excepte el token
+        Course::create($course_request->input());
+		return back()->with('message', ['success', __('Curso enviado correctamente, recibirá un correo con cualquier información')]);
+    }
+
+    public function edit ($slug) {
+		$course = Course::with(['requirements', 'goals'])->withCount(['requirements', 'goals'])
+			->whereSlug($slug)->first();
+		$btnText = __("Actualizar curso");
+		return view('courses.form', compact('course', 'btnText'));
+	}
+
+	public function update (CourseRequest $course_request, Course $course) {
+        //Comprovem si exissteix foto
+		if($course_request->hasFile('picture')) {
+            //Esborrem l'antiga foto i pujem la nova
+			\Storage::delete('courses/' . $course->picture);
+			$picture = Helper::uploadFile( "picture", 'courses');
+			$course_request->merge(['picture' => $picture]);
+		}
+		$course->fill($course_request->input())->save();
+        return back()->with('message', ['success', __('Curso actualizado')]);
+        //return view('teachers.courses')->with('message', ['success', __('Curso actualizado')]);
+	}
+
+	public function destroy (Course $course) {
+		try {
+			$course->delete();
+			return back()->with('message', ['success', __("Curso eliminado correctamente")]);
+		} catch (\Exception $exception) {
+			return back()->with('message', ['danger', __("Error eliminando el curso")]);
+		}
 	}
 }

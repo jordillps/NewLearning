@@ -41,7 +41,7 @@ class CourseRequest extends FormRequest
                         // el level id existeix a la taula level
                         Rule::exists('levels', 'id')
 			        ],
-		            'category_id' => [
+		            'categoory_id' => [
 			            'required',
 			            Rule::exists('categoories', 'id')
 		            ],

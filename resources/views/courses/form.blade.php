@@ -69,12 +69,12 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="category_id" class="col-md-4 col-form-label text-md-right">{{ __("Categoría del curso") }}</label>
+                            <label for="categoory_id" class="col-md-4 col-form-label text-md-right">{{ __("Categoría del curso") }}</label>
                             <div class="col-md-6">
-                                <select name="category_id" id="category_id" class="form-control">
+                                <select name="categoory_id" id="categoory_id" class="form-control">
                                     {{-- Group by per evitat repetir les categories --}}
                                     @foreach(\App\Categoory::groupBy('name')->pluck('name', 'id') as $id => $category)
-                                        <option {{ (int) old('category_id') === $id || $course->category_id === $id ? 'selected' : '' }} value="{{ $id }}">
+                                        <option {{ (int) old('categoory_id') === $id || $course->categoory_id === $id ? 'selected' : '' }} value="{{ $id }}">
                                             {{ $category }}
                                         </option>
                                     @endforeach

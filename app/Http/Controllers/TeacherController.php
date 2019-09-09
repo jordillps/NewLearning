@@ -10,8 +10,9 @@ use App\User;
 class TeacherController extends Controller
 {
 	public function courses () {
-		$courses = Course::withCount(['students'])->with('category', 'reviews')
-			->whereTeacherId(auth()->user()->teacher->id)->paginate(12);
+		$courses = Course::withCount(['students'])->with('categoory', 'reviews')
+            ->whereTeacherId(auth()->user()->teacher->id)->paginate(12);
+            //dd($courses);
 		return view('teachers.courses', compact('courses'));
 	}
 
