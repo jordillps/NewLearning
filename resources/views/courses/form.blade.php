@@ -1,11 +1,18 @@
 @extends('layouts.app')
 
 @section('jumbotron')
-    @include('partials.jumbotron', ['title' => 'Dar de alta un nuevo curso', 'icon' => 'edit'])
+    @if($course->id)
+        @include('partials.jumbotron',['title' => "Editar curso", 'icon' => 'edit'])
+    @else
+        @include('partials.jumbotron',['title' => "Dar de alta nuevo curso", 'icon' => 'edit'])
+    @endif
 @endsection
 
 @section('content')
     <div class="pl-5 pr-5">
+        {{-- @php
+            dd($course);
+        @endphp --}}
         <form
             method="POST"
             {{-- Si no existex el curs la ruta es courses.store, si existeix courses.update --}}

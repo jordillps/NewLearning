@@ -12,6 +12,9 @@ class TeacherController extends Controller
 	public function courses () {
 		$courses = Course::withCount(['students'])->with('categoory', 'reviews')
             ->whereTeacherId(auth()->user()->teacher->id)->paginate(12);
+            //Si volem mostrar els cursos que hem esborrat es a  dir,
+            // deleted_at te valor
+            //->whereTeacherId(auth()->user()->teacher->id)->withTrashed()->paginate(12);
             //dd($courses);
 		return view('teachers.courses', compact('courses'));
 	}

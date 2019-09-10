@@ -59,9 +59,9 @@ class CourseRequest extends FormRequest
 				        'required',
 				        Rule::exists('levels', 'id')
 			        ],
-			        'category_id' => [
+			        'categoory_id' => [
 				        'required',
-				        Rule::exists('categories', 'id')
+				        Rule::exists('categoories', 'id')
 			        ],
 			        'picture' => 'sometimes|image|mimes:jpg,jpeg,png',
 			        'requirements.0' => 'required_with:requirements.1',

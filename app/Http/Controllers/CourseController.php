@@ -115,8 +115,10 @@ class CourseController extends Controller
 			$course_request->merge(['picture' => $picture]);
 		}
 		$course->fill($course_request->input())->save();
-        return back()->with('message', ['success', __('Curso actualizado')]);
-        //return view('teachers.courses')->with('message', ['success', __('Curso actualizado')]);
+
+        //return back()->with('message', ['success', __('Curso actualizado')]);
+        return redirect()->route('teacher.courses')->with('message', ['success', __('Curso actualizado')]);
+
 	}
 
 	public function destroy (Course $course) {
