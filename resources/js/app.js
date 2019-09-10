@@ -21,9 +21,28 @@ window.Vue = require('vue');
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
+//Components per al vue-tables-2
+import {ServerTable} from 'vue-tables-2';
+Vue.use(ServerTable, {}, false, 'bootstrap4', 'default');
+
+//VUE HTTP RESOURCE
+import VueResource from 'vue-resource'
+Vue.use(VueResource);
+//.VUE HTTP RESOURCE
+
+
 //Importem en mou component StripeForm
 import StripeForm from './components/StripeForm';
 Vue.component('stripe-form', StripeForm);
+
+//Importem un nou component Courses
+import Courses from './components/Courses';
+Vue.component('courses-list', Courses);
+
+// Vue.component(
+//     'courses-list',
+//     require('./components/Courses.vue').default
+// );
 
 
 /**
