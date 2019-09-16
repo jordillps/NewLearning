@@ -95,7 +95,9 @@ Route::group(['prefix' => "admin", "middleware" => ['auth', sprintf("role:%s", \
 	Route::get('/courses_json', 'AdminController@coursesJson')->name('admin.courses_json');
 	Route::post('/courses/updateStatus', 'AdminController@updateCourseStatus');
 
-	Route::get('/students', 'AdminController@students')->name('admin.students');
+    Route::get('/students', 'AdminController@students')->name('admin.students');
+    Route::get('/students/{id}/edit', 'AdminController@indexByAdmin')->name('admin.studentsedit');
+    Route::delete('/students/{id}/destroy', 'AdminController@studentsDestroy')->name('admin.studentsdestroy');
 	Route::get('/students_json', 'AdminController@studentsJson')->name('admin.students_json');
 	Route::get('/teachers', 'AdminController@teachers')->name('admin.teachers');
 	Route::get('/teachers_json', 'AdminController@teachersJson')->name('admin.teachers_json');
