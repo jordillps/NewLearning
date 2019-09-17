@@ -17,7 +17,12 @@
                         {{ __("Actualiza tus datos") }}
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('profile.update') }}" novalidate>
+                        @if(auth()->user()->role_id ==1)
+                            <form method="POST" action="{{ route('admin.updateByAdmin',['id'=>$user->id]) }}" novalidate>
+                        @else
+                            <form method="POST" action="{{ route('profile.update') }}" novalidate>
+                        @endif
+                        {{-- <form method="POST" action="{{ route('profile.update') }}" novalidate> --}}
                             @csrf
                             {{-- Necessitem que el metode del formulari sigui PUT --}}
                             {{-- perque a la ruta de web.php utilitzem el verb html PUT --}}

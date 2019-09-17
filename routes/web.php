@@ -77,7 +77,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 Route::group(["prefix" => "profile", "middleware" => ["auth"]], function() {
 	Route::get('/', 'ProfileController@index')->name('profile.index');
-	Route::put('/', 'ProfileController@update')->name('profile.update');
+    Route::put('/', 'ProfileController@update')->name('profile.update');
 });
 
 Route::group(['prefix' => "solicitude"], function() {
@@ -98,8 +98,15 @@ Route::group(['prefix' => "admin", "middleware" => ['auth', sprintf("role:%s", \
     Route::get('/students', 'AdminController@students')->name('admin.students');
     Route::get('/students/{id}/edit', 'AdminController@indexByAdmin')->name('admin.studentsedit');
     Route::delete('/students/{id}/destroy', 'AdminController@studentsDestroy')->name('admin.studentsdestroy');
-	Route::get('/students_json', 'AdminController@studentsJson')->name('admin.students_json');
-	Route::get('/teachers', 'AdminController@teachers')->name('admin.teachers');
-	Route::get('/teachers_json', 'AdminController@teachersJson')->name('admin.teachers_json');
+    //Per a les taules amb Vue
+    //Route::get('/students_json', 'AdminController@studentsJson')->name('admin.students_json');
+
+    Route::get('/teachers', 'AdminController@teachers')->name('admin.teachers');
+    Route::get('/teachers/{id}/edit', 'AdminController@indexByAdmin')->name('admin.teachersedit');
+    Route::delete('/teachers/{id}/destroy', 'AdminController@teachersDestroy')->name('admin.teachersdestroy');
+    //Per a les taules amb Vue
+    //Route::get('/teachers_json', 'AdminController@teachersJson')->name('admin.teachers_json');
+
+    Route::put('/{id}', 'AdminController@updateByAdmin')->name('admin.updateByAdmin');
 });
 
