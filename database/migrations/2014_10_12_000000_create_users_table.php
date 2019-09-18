@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
 
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            //foreing key que referencia a roles 
+            //foreing key que referencia a roles
             $table->unsignedInteger('role_id')->default(\App\Role::STUDENT);
             $table->foreign('role_id')->references('id')->on('roles');
             $table->string('name');
@@ -63,12 +63,12 @@ class CreateUsersTable extends Migration
 	    {
 		    $table->increments('id');
 		    $table->unsignedInteger('user_id');
-		    $table->foreign('user_id')->references('id')->on('users');
+		    $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 		    $table->string('provider');
 		    $table->string('provider_uid');
 	    });
 
-       
+
     }
 
     /**
@@ -80,6 +80,6 @@ class CreateUsersTable extends Migration
     {
         Schema::dropIfExists('users');
         Schema::dropIfExists('roles');
-        
+
     }
 }

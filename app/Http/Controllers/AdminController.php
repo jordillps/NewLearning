@@ -7,11 +7,13 @@ use App\User;
 use App\Role;
 use App\Student;
 use App\Review;
+use App\Teacher;
 use App\UserSocialAccount;
 use App\Mail\CourseApproved;
 use App\Mail\CourseRejected;
 use App\VueTables\EloquentVueTables;
 use App\Rules\StrengthPassword;
+use DB;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -80,8 +82,8 @@ class AdminController extends Controller
             $social_account = UserSocialAccount::where('user_id', '=', $id);
             $student->delete();
             //Borramos sus revisiones
-            $review = Review::where('user_id', '=', $id);
-            $review->delete();
+            $reviews = Review::where('user_id', '=', $id);
+            $reviews->delete();
             //Finalmente borramos el usuario
             $user = User::where('id', '=', $id);
             $user->delete();
@@ -110,30 +112,28 @@ class AdminController extends Controller
     }
 
 	public function teachers () {
-        $teachers = User::where('role_id', '=', Role::TEACHER)
+        $teachers = DB::table('users')
+        ->join('teachers', 'users.id', '=', 'teachers.user_id')
+        ->select('users.id', 'users.name', 'users.last_name','users.email','users.created_at')
         ->paginate(10);
-    //retorna la vista home amb la variable estudiants
-		return view('admin.teachers',compact('teachers'));
+    //retorna la vista admin.teachers amb la variable teachers
+		return view('admin.teachers',['teachers' => $teachers]);
     }
 
     public function teachersDestroy ($id) {
         try {
+            $teacher= Teacher::where('user_id', '=', $id)->first();
+            // dd($teacher->id);
+            //Borramos los cursos
+            $teacher->courses()->delete();
             //Borramos el profesor
-            $teacher = Student::where('user_id', '=', $id);
             $teacher->delete();
-            //Borramos el profesor
-            $courses = Course::where('teacher_id', '=', $id);
-            $courses->delete();
-            //Borramos el accesso Social
-            $social_account = UserSocialAccount::where('user_id', '=', $id);
-            $social_account->delete();
-            //Borramos sus revisiones
-            $review = Review::where('user_id', '=', $id);
-            $review->delete();
-            //Finalmente borramos el usuario
-            $user = User::where('id', '=', $id);
-            $user->delete();
-			return back()->with('message', ['success', __("Usuario estudiante eliminado correctamente")]);
+            //No esborrem l'usuari pero lo canviem
+            //el rol a estudiant
+            $user= User::where('id', '=', $id)->first();
+            $user->role_id = Role::STUDENT;
+            $user->save();
+			return back()->with('message', ['success', __("Usuario profesor eliminado correctamente")]);
 		} catch (\Exception $exception) {
 			return back()->with('message', ['danger', __("Error eliminando el profesor")]);
 		}

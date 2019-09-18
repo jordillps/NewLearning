@@ -74,6 +74,13 @@ class User extends Authenticatable
     ];
 
     /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['created_at', 'updated_at'];
+
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
@@ -97,7 +104,7 @@ class User extends Authenticatable
 
     public static function navigation () {
         //comprovem si  esta autenticat
-        //si ho esta recollim el nom 
+        //si ho esta recollim el nom
         //si no ho esta el definim com a 'guest'
     	return auth()->check() ? auth()->user()->role->name : 'guest';
     }

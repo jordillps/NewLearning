@@ -26,7 +26,7 @@
                         <td>{{ $teacher->name }}</td>
                         <td>{{ $teacher->last_name }}</td>
                         <td>{{ $teacher->email }}</td>
-                        <td>{{ $teacher->created_at->format('d/m/Y') }}</td>
+                        <td>{{ Carbon\Carbon::parse($teacher->created_at)->format('d/m/Y') }}</td>
                         <td >
                             <form action="{{ route('admin.teachersedit', ['id' => $teacher->id]) }}" method="GET">
                                     @csrf
