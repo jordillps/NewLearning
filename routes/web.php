@@ -24,7 +24,7 @@ Route::get('login/{driver}/callback', 'Auth\LoginController@handleProviderCallba
 //     return view('welcome');
 // });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/', 'HomeController@index')->name('home');
 

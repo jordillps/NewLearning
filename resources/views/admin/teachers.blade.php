@@ -11,9 +11,11 @@
             <table class="table table-striped">
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">Id</th>
+                        <th scope="col">Id Profesor</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Apellido</th>
+                        <th scope="col">Título</th>
                         <th scope="col">Email</th>
                         <th scope="col">Fecha de alta</th>
                         <th colspan="2">Administración</th>
@@ -21,10 +23,11 @@
                 </thead>
                 <tbody>
                     @forelse($teachers as $teacher)
-                    <tr>
-                        <th scope="row">{{ $teacher->id }}</th>
+                    <th scope="row">{{ $teacher->id }}</th>
+                        <td>{{ $teacher->teacher_id }}</td>
                         <td>{{ $teacher->name }}</td>
                         <td>{{ $teacher->last_name }}</td>
+                        <td>{{ $teacher->title }}</td>
                         <td>{{ $teacher->email }}</td>
                         <td>{{ Carbon\Carbon::parse($teacher->created_at)->format('d/m/Y') }}</td>
                         <td >

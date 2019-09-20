@@ -65,9 +65,16 @@ class AdminController extends Controller
 
 	public function students () {
         //Definim les dades que volem mostrar
-        //withcount es el nombre d'estudiants  que hi ha en el curs
-        $students = User::where('role_id', '=', Role::STUDENT)
-        ->paginate(10);
+        //Una manera de fer-ho
+            // $students = User::where('role_id', '=', Role::STUDENT)
+            // ->paginate(10);
+        //Una altra manera amb dades de dues taules
+        $students = DB::table('users')
+            ->join('students', 'users.id', '=', 'students.user_id')
+            ->select('users.id as id', 'students.id as student_id', 'users.name as name',
+            'users.last_name as last_name','students.title as title', 'users.email as email',
+            'users.created_at as created_at')
+            ->paginate(10);
     //retorna la vista home amb la variable estudiants
 		return view('admin.students',compact('students'));
     }
@@ -78,18 +85,24 @@ class AdminController extends Controller
             //Borramos el estudiante
             $student = Student::where('user_id', '=', $id);
             $student->delete();
-            //Borramos el accesso Social
-            $social_account = UserSocialAccount::where('user_id', '=', $id);
-            $student->delete();
-            //Borramos sus revisiones
-            $reviews = Review::where('user_id', '=', $id);
-            $reviews->delete();
+
             //Finalmente borramos el usuario
-            $user = User::where('id', '=', $id);
+            //Accedemos al usuario
+            $user = User::find($id);
+
+            //Borramos el accesso Social
+            $user->socialAccount()->delete();
+
+            //Borramos las reviews
+            $user->reviews()->delete();
+
+            //Borramos el usuario
             $user->delete();
-			return back()->with('message', ['success', __("Usuario estudiante eliminado correctamente")]);
+            return back()->with('message', ['success', __("Usuario estudiante eliminado correctamente")]);
+
 		} catch (\Exception $exception) {
-			return back()->with('message', ['danger', __("Error eliminando el estuditante")]);
+
+		 	return back()->with('message', ['danger', __("Error eliminando el estuditante")]);
 		}
     }
 
@@ -113,9 +126,11 @@ class AdminController extends Controller
 
 	public function teachers () {
         $teachers = DB::table('users')
-        ->join('teachers', 'users.id', '=', 'teachers.user_id')
-        ->select('users.id', 'users.name', 'users.last_name','users.email','users.created_at')
-        ->paginate(10);
+            ->join('teachers', 'users.id', '=', 'teachers.user_id')
+            ->select('users.id as id', 'teachers.id as teacher_id', 'users.name as name',
+            'users.last_name as last_name','teachers.title as title', 'users.email as email',
+            'users.created_at as created_at')
+            ->paginate(10);
     //retorna la vista admin.teachers amb la variable teachers
 		return view('admin.teachers',['teachers' => $teachers]);
     }

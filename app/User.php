@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Cashier\Billable;
 
 /**
@@ -47,7 +48,7 @@ use Laravel\Cashier\Billable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereSlug($value)
  */
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable, Billable;
 
@@ -124,5 +125,9 @@ class User extends Authenticatable
 
     public function socialAccount () {
     	return $this->hasOne(UserSocialAccount::class);
+    }
+
+    public function reviews () {
+    	return $this->hasMany(Review::class);
     }
 }
