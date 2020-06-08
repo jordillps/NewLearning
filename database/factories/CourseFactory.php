@@ -14,7 +14,7 @@ $factory->define(Course::class, function (Faker $faker) {
 	    'categoory_id' => \App\Categoory::all()->random()->id,
 	    'level_id' => \App\Level::all()->random()->id,
 	    'name' => $name,
-	    'slug' => str_slug($name, '-'),
+	    'slug' => Str::slug($name, '-'),
         'description' => $faker->paragraph,
         //Més informació a github faker
         'picture' => \Faker\Provider\Image::image(storage_path() . '/app/public/courses', 600, 350, 'business', false),

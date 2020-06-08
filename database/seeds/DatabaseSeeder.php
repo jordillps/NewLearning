@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
 	        'password' => bcrypt('joibla068'),
 	        'role_id' => \App\Role::ADMIN
         ])
-        //Per seguir la condicio que tots els users son 
+        //Per seguir la condicio que tots els users son
         //estudiants per defecte
         ->each(function (\App\User $u) {
         	factory(\App\Student::class, 1)->create(['user_id' => $u->id]);
@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
 	            factory(\App\Student::class, 1)->create(['user_id' => $u->id]);
 	        });
 
-	    factory(\App\User::class, 50)->create()
+	    factory(\App\User::class, 10)->create()
              ->each(function (\App\User $u) {
                  factory(\App\Student::class, 1)->create(['user_id' => $u->id]);
              });
@@ -60,10 +60,10 @@ class DatabaseSeeder extends Seeder
 	    factory(\App\Level::class, 1)->create(['name' => 'Intermediate']);
 	    factory(\App\Level::class, 1)->create(['name' => 'Advanced']);
         factory(\App\Categoory::class, 5)->create();
-        
 
 
-	    factory(\App\Course::class, 50)
+
+	    factory(\App\Course::class, 10)
 		    ->create()
 		    ->each(function (\App\Course $c) {
 		    	$c->goals()->saveMany(factory(\App\Goal::class, 2)->create());
