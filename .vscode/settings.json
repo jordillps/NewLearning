@@ -1,3 +1,4 @@
 {
-    "editor.fontFamily": "Fira Code, Consolas, 'Courier New', monospace"
+    "editor.fontFamily": "Fira Code, Consolas, 'Courier New', monospace",
+    "editor.defaultFormatter": "numso.prettier-standard-vscode"
 }
