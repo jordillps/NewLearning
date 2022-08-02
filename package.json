@@ -45,6 +45,7 @@
         "set-value": "^4.1.0",
         "sockjs": "^0.3.21",
         "ssri": "^8.0.1",
+        "terser": "^5.14.2",
         "url-parse": "^1.5.9",
         "vue-resource": "^1.5.1",
         "vue-stripe": "^0.1.52",
