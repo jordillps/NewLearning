@@ -2806,10 +2806,10 @@
   "resolved" "https://registry.npmjs.org/decamelize/-/decamelize-1.2.0.tgz"
   "version" "1.2.0"
 
-"decode-uri-component@^0.2.0":
-  "integrity" "sha1-6zkTMzRYd1y4TNGh+uBiEGu4dUU="
-  "resolved" "https://registry.npmjs.org/decode-uri-component/-/decode-uri-component-0.2.0.tgz"
-  "version" "0.2.0"
+"decode-uri-component@^0.2.0", "decode-uri-component@^0.2.2":
+  "integrity" "sha512-FqUYQ+8o158GyGTrMFJms9qh3CqTKvAqgqsTnkLI8sKu0028orqBhxNMFkFen0zGyg6epACD32pjVk58ngIErQ=="
+  "resolved" "https://registry.npmjs.org/decode-uri-component/-/decode-uri-component-0.2.2.tgz"
+  "version" "0.2.2"
 
 "decompress-response@^6.0.0":
   "integrity" "sha512-aW35yZM6Bb/4oJlZncMH2LCoZtJXTRxES17vE3hoRiowU2kWHaJKFkSBDnDR+cm9J+9QhXmREyIfv0pji9ejCQ=="

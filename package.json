@@ -28,6 +28,7 @@
         "ansi-html": "^0.0.9",
         "async": "^2.6.4",
         "bump": "^0.2.5",
+        "decode-uri-component": "^0.2.2",
         "dot-prop": "^5.3.0",
         "elliptic": "^6.5.4",
         "follow-redirects": "^1.14.8",
