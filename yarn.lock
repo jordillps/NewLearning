@@ -1506,10 +1506,10 @@
     "json-schema-traverse" "^0.4.1"
     "uri-js" "^4.2.2"
 
-"ajv@^7.0.3":
-  "integrity" "sha512-R50QRlXSxqXcQP5SvKUrw8VZeypvo12i2IX0EeR5PiZ7bEKeHWgzgo264LDadUsCU42lTJVhFikTqJwNeH34gQ=="
-  "resolved" "https://registry.npmjs.org/ajv/-/ajv-7.0.3.tgz"
-  "version" "7.0.3"
+"ajv@^7.0.4":
+  "integrity" "sha512-xzzzaqgEQfmuhbhAoqjJ8T/1okb6gAzXn/eQRNpAN1AEUoHJTNF9xCDRTtf/s3SKldtZfa+RJeTs+BQq+eZ/sw=="
+  "resolved" "https://registry.npmjs.org/ajv/-/ajv-7.0.4.tgz"
+  "version" "7.0.4"
   dependencies:
     "fast-deep-equal" "^3.1.1"
     "json-schema-traverse" "^1.0.0"
