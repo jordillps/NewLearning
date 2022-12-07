@@ -24,7 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "ajv": "^6.12.6",
+        "ajv": "^7.0.4",
         "ansi-html": "^0.0.9",
         "async": "^2.6.4",
         "bump": "^0.2.5",
