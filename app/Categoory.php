@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Categoory extends Model
 {
-    //
+    //Get the courses by category
     public function courses () {
     	return $this->hasMany(Course::class);
     }
